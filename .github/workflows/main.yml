@@ -19,7 +19,7 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-        echo "Host ${ secrets.SSH_HOST }
+        echo "Host ${{ secrets.SSH_HOST }}
               StrictHostKeyChecking no" > ~/.ssh/config
 
     - name: Test SSH connection
