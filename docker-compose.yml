@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+  web-app:
+    build:
+      # zabildit obraz iz dockerfile
+      context: .
+    ports:
+        # perebrozka portov
+        - "9000:9000"
+    volumes:
+      - .:/home/user/web
+    env_file:
+      - .env
+    command: >
+      sh -c "python manage.py collectstatic --noinput && python manage.py migrate  && gunicorn --workers 4 --bind unix:probilet.sock configs.wsgi:application"
+    expose:
+      - "9000"
+    restart: always
+
+
+    depends_on:
+      - database
+
+  database:
+    image: postgres:14.6-alpine
+    environment:
+      - POSTGRES_DB=dbname
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+    ports:
+      - 5434:5432
+    volumes:
+      - djangodb:/var/lib/postgresql/data
+    restart: always
+
+
+  nginx:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./nginx/
+    container_name: probilet_nginx
+    image: probilet_nginx
+    volumes:
+      - .:/home/user/web
+    depends_on:
+      - web-app
+    ports:
+      - "80:80"
+    restart: always
+
+
+
+volumes:
+  static_volume:
+  media_volume:
+  djangodb:
