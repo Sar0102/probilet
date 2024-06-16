@@ -13,7 +13,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install SSH keys
+    - name: Set up SSH key
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
@@ -21,6 +21,11 @@ jobs:
         ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
         echo "Host ${{ secrets.SSH_HOST }}
               StrictHostKeyChecking no" > ~/.ssh/config
+
+    - name: Add SSH key to the agent
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
     - name: Test SSH connection
       run: ssh -v ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo 'SSH connection successful'"
