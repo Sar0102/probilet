@@ -3,7 +3,6 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 
 
-# pzdc
 class UserManager(BaseUserManager):
     def create_user(
         self, email, username, first_name, last_name, password=None, **extra_fields
