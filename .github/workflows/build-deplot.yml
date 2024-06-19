@@ -9,6 +9,9 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
+    outputs:
+      commit_hash: ${{ steps.vars.outputs.commit_hash }}
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
