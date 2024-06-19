@@ -16,7 +16,7 @@ from rest_framework.views import APIView
 @permission_classes([])
 class PingView(APIView):
     def get(self, request, *args, **kwargs):
-        return Response({"ok": True})
+        return Response({"pzdc": True})
 
 
 urlpatterns = [
