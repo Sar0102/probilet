@@ -7,17 +7,20 @@ from drf_spectacular.views import (
     SpectacularRedocView,
     SpectacularSwaggerView,
 )
+from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 
+@authentication_classes([])
+@permission_classes([])
 class PingView(APIView):
     def get(self, request, *args, **kwargs):
         return Response({"ok": True})
 
 
 urlpatterns = [
-    path("ping/", PingView.as_view(), name="ping"),
+    path("", PingView.as_view(), name="ping"),
     path("api/web/", include("configs.urls.web_urls", "web")),
     path("admin/", admin.site.urls),
     path("schema/", SpectacularAPIView.as_view(), name="schema"),

@@ -11,7 +11,7 @@ services:
     volumes:
       - .:/home/user/web
     env_file:
-      - .env
+      - .env-tr
     command: >
       sh -c "python manage.py collectstatic --noinput && python manage.py migrate  && gunicorn --workers 4 --bind unix:probilet.sock configs.wsgi:application"
     expose:

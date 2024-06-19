@@ -1,0 +1,5 @@
+dependencies:
+  - name: postgresql
+    repository: "@bitnami"
+    condition: postgresql.enabled
+    version: 10.4.4

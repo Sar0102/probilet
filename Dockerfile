@@ -25,5 +25,6 @@ ENV PYTHONUNBUFFERED 1
 
 COPY --from=base /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
 COPY --from=base /usr/local/bin/ /usr/local/bin/
-
+COPY Makefile ./Makefile
+COPY static ./static
 COPY . .
