@@ -11,7 +11,7 @@ RUN apk update && \
     pip install psycopg2-binary && \
     rm -rf /var/cache/apk/*
 
-RUN apt-get install -y make
+RUN apk install -y make
 
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
