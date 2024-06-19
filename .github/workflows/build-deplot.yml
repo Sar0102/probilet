@@ -48,14 +48,14 @@ jobs:
 
     - name: Update values.yaml with new tag
       run: |
-        sed -i 's/tag:.*/tag: '${{ needs.build-and-push.outputs.commit_hash }}'/' ./probilet-backend/values.yaml
+        sed -i 's/tag:.*/tag: '${{ needs.build-and-push.outputs.commit_hash }}'/' helm-chart-repo/probilet-backend/values.yaml
 
     - name: Commit and push changes
       run: |
         cd helm-chart-repo
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
-        git add values.yaml
+        git add probilet-backend/values.yaml
         git commit -m "Update Docker image tag to ${{ needs.build-and-push.outputs.commit_hash }}"
         git push
       env:
