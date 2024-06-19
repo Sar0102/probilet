@@ -41,13 +41,13 @@ jobs:
     - name: Checkout Helm Chart repository
       uses: actions/checkout@v2
       with:
-        repository: ${{ secrets.GITHUB_USERNAME }}/helm-chart-repo
-        token: ${{ secrets.GITHUB_TOKEN }}
+        repository: ${{ secrets.GH_USERNAME }}/helm-chart-repo
+        token: ${{ secrets.GH_TOKEN }}
         path: helm-chart-repo
 
     - name: Update values.yaml with new tag
       run: |
-        sed -i 's/tag:.*/tag: '${{ steps.vars.outputs.commit_hash }}'/' helm-chart-repo/values.yaml
+        sed -i 's/tag:.*/tag: '${{ needs.build-and-push.outputs.vars.outputs.commit_hash }}'/' probilet-backend/values.yaml
 
     - name: Commit and push changes
       run: |
@@ -55,7 +55,7 @@ jobs:
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
         git add values.yaml
-        git commit -m "Update Docker image tag to ${{ steps.vars.outputs.commit_hash }}"
+        git commit -m "Update Docker image tag to ${{ needs.build-and-push.outputs.vars.outputs.commit_hash }}"
         git push
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
