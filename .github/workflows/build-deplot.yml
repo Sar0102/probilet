@@ -48,7 +48,7 @@ jobs:
 
     - name: Update values.yaml with new tag
       run: |
-        sed -i 's/tag:.*/tag: '${{ needs.build-and-push.outputs.commit_hash }}'/' probilet-backend/values.yaml
+        sed -i 's/tag:.*/tag: '${{ needs.build-and-push.outputs.commit_hash }}'/' ./probilet-backend/values.yaml
 
     - name: Commit and push changes
       run: |
