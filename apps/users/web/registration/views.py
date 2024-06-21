@@ -5,7 +5,7 @@ from apps.users.models import User
 from apps.users.web.registration.serializers import UserSerializer
 
 
-class CreateUserView(ListCreateAPIView):
+class CreateListUserView(ListCreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = [AllowAny]
